@@ -44,7 +44,7 @@
     <label>Select how to receive funds *<select name="payment_method" required><option value="">Choose a method</option>{% for method in methods %}<option>{{ method }}</option>{% endfor %}</select></label>
     <label>Cardholder name <span class="muted">(if applicable)</span><input name="cardholder_name" maxlength="120" autocomplete="cc-name"></label>
   </div>
-    <label class="consent"><input type="checkbox" required> I confirm that the information provided is accurate and have read the <a href="{{ url_for('privacy') }}">Privacy Notice</a>. I understand this is an independent service and submitting an application does not guarantee a refund.</label>
+    <label class="consent"><input type="checkbox" required> I confirm that the information provided is accurate and have read the <a href="{{ url_for('privacy') }}">Privacy Notice</a></label>
   <button class="button" type="submit">Submit application</button>
 </form>
 <script>
