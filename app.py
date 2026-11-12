@@ -87,7 +87,9 @@ class Application(db.Model):
     admin_notes = db.Column(db.Text)
     created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
 
-
+# Automatically create missing database tables when the app starts.
+with app.app_context():
+    db.create_all()
 def send_email(to_address, subject, body):
     host = os.environ.get("MAIL_SERVER")
     username = os.environ.get("MAIL_USERNAME")
