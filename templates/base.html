@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Independent flight refund assistance application portal.">
+  <title>{% block title %}Refund Assistance{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">RA</span><span>Refund Assistance</span></a>
+  <nav><a href="{{ url_for('index') }}">Home</a><a href="{{ url_for('apply') }}">Apply</a><a href="{{ url_for('privacy') }}">Privacy</a><a href="{{ url_for('terms') }}">Terms</a></nav>
+</header>
+<div class="disclosure">{{ independent_disclosure }}</div>
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer><p>Independent refund assistance service. No affiliation with or endorsement by Allegiant Air.</p><p><a href="{{ url_for('privacy') }}">Privacy</a> · <a href="{{ url_for('terms') }}">Terms</a> · <a href="{{ url_for('admin_login') }}">Administrator</a></p></footer>
+</body>
+</html>

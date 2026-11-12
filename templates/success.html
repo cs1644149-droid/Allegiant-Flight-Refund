@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Application Received{% endblock %}
+{% block content %}
+<section class="success-card"><div class="success-icon">✓</div><h1>Application received</h1><p>Your request has been recorded.</p><div class="reference">{{ reference }}</div><p class="muted">Save this reference for future correspondence. This acknowledgement is not confirmation of refund eligibility or approval.</p><a class="button secondary" href="{{ url_for('index') }}">Return home</a></section>
+{% endblock %}

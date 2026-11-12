@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Review Application{% endblock %}
+{% block content %}
+<a href="{{ url_for('admin_dashboard') }}">← Back to dashboard</a>
+<div class="page-heading"><div class="eyebrow">APPLICATION {{ record.reference }}</div><h1>{{ record.full_name }}</h1><p>Submitted {{ record.created_at.strftime('%Y-%m-%d %H:%M UTC') }}</p></div>
+<div class="detail-grid">
+{% for label, value in [('Email', record.email), ('Phone', record.phone), ('Flight reference', record.flight_reference), ('Reason', record.reason),
+('Airline ticket number', record.ticket_number),
+('Ticket issue date', record.ticket_issue_date),
+('Ticket expiry date', record.ticket_expiry_date), ('Other explanation', record.reason_other), ('Requested amount', record.amount), ('Street address', record.street_address), ('City', record.city), ('Province / state', record.state_province), ('Postal code', record.postal_code), ('Date of birth', record.date_of_birth), ('Payment preference', record.payment_method), ('Cardholder name', record.cardholder_name)] %}
+<div><span>{{ label }}</span><strong>{{ value or '—' }}</strong></div>
+{% endfor %}
+</div>
+<form class="form-card" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><h2>Update application</h2><label>Status<select name="status">{% for s in statuses %}<option {% if s == record.status %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label><label>Internal notes<textarea name="admin_notes" rows="5">{{ record.admin_notes or '' }}</textarea></label><button class="button" type="submit">Save changes</button></form>
+{% endblock %}
