@@ -12,7 +12,7 @@
   <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">RA</span><span>Refund Assistance</span></a>
   <nav><a href="{{ url_for('index') }}">Home</a><a href="{{ url_for('apply') }}">Apply</a><a href="{{ url_for('privacy') }}">Privacy</a><a href="{{ url_for('terms') }}">Terms</a></nav>
 </header>
-<div class="disclosure">{{ independent_disclosure }}</div>
+
 <main class="container">
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}
